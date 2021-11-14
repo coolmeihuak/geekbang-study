@@ -57,7 +57,7 @@
     * ParNew + CMS 收集器的组合
     * CMS GC的过程会伴随着一次至多次YoungGC
     * 可以看到CMS GC的6个阶段：初始标记Initial Mark、并发标记Concurrent Mark、并发预清理Concurrent Preclean、最终标记Final Remark、并发清理Concurrent Sweep、并发重制Concurrent Reset
-    * 处理请求能力比ParallelGC慢，但是响应会快一些
+    * 处理请求能力比ParallelGC慢，但是响应会快一些，我这里时间比ParallelGC慢，看了下应该是没有Full GC 导致的，需要多调试下参数，多模拟下多次Full GC的场景
 * +UseG1GC
     * G1是CMS算法的一个升级
     * 阶段：纯年轻代模式转移暂停Evacuation Pause：Young、并发标记Concurrent Mark、阶段1初始标记Initial Mark、阶段2Root扫描Root Region Scan、阶段3并发标记Concurrent Mark、阶段4再次标记Remark、阶段5清理Cleanup、转移暂停：混合模式Evacuation Pause（mixed）
