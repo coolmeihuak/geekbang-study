@@ -1,0 +1,1 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\cc.page.study.week5.autoimport.configuration.WebAutoConfiguration

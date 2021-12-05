@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+    
+    <bean id="person1"
+          class="cc.page.study.week5.practice2.Person">
+        <property name="name" value="page" />
+        <property name="age" value="13" />
+    </bean>
+
+    <bean id="cat91"
+          class="cc.page.study.week5.practice2.Cat">
+        <property name="name" value="cat11" />
+        <property name="age" value="5" />
+    </bean>
+
+    <bean id="dog91"
+          class="cc.page.study.week5.practice2.Dog">
+        <property name="name" value="dog33" />
+        <property name="age" value="3" />
+    </bean>
+
+    <bean id = "mix1" class="cc.page.study.week5.practice2.mix.Mix1">
+        <property name="cat" ref="cat91" />
+        <property name="dog" ref="dog91" />
+    </bean>
+    
+    <context:component-scan base-package="cc.page.study.week5.practice2" />
+
+</beans>
