@@ -12,7 +12,7 @@ public class HikariConnection {
     public static Connection getConnection() throws SQLException {
         Properties props = new Properties();
         props.setProperty("jdbcUrl", "jdbc:mysql://localhost:3308/test?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true");
-        props.setProperty("driverClassName", "com.mysql.jdbc.Driver");
+        props.setProperty("driverClassName", "com.mysql.cj.jdbc.Driver");
         props.setProperty("dataSource.user", "root");
         props.setProperty("dataSource.password", "123456");
         props.setProperty("dataSource.databaseName", "test");

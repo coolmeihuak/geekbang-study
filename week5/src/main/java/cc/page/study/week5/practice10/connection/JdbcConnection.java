@@ -13,6 +13,7 @@ public class JdbcConnection {
     public static Connection getConnection() throws SQLException {
         //1.加载驱动程序
         try {
+            // com.mysql.cj.jdbc.Driver
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
