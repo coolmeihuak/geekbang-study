@@ -1,0 +1,76 @@
+spring:
+  shardingsphere:
+    datasource:
+      names: sharding-sphere-proxy-0,sharding-sphere-proxy-1
+      parameters: useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+      ## spring boot 2.4以上必须要配置common
+      common:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class: com.mysql.cj.jdbc.Driver
+        username: root
+        password: 123456
+        max-active: 16
+      sharding-sphere-proxy-0: &default-db-config
+        jdbc-url: jdbc:mysql://127.0.0.1:3308/sharding_sphere_proxy_0?${spring.shardingsphere.datasource.parameters}
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class: com.mysql.cj.jdbc.Driver
+        username: root
+        password: 123456
+        max-active: 16
+      sharding-sphere-proxy-1:
+        jdbc-url: jdbc:mysql://127.0.0.1:3308/sharding_sphere_proxy_1?${spring.shardingsphere.datasource.parameters}
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class: com.mysql.cj.jdbc.Driver
+        username: root
+        password: 123456
+        max-active: 16
+  rules:
+    sharding:
+      key-generators:
+        snowflake:
+          type: SNOWFLAKE
+          props:
+            worker-id: 123
+      sharding-algorithms:
+        table-inline:
+          # 使用了内置的分片算法-INLINE
+          type: INLINE
+          props:
+            algorithm-expression: order_$->{id % 16}
+        database-inline:
+          type: INLINE
+          props:
+            algorithm-expression: sharding-sphere-proxy-->{user_id % 2}
+      tables:
+        order:
+          actual-data-nodes: sharding-sphere-proxy-->{0..1}.order_$->{0..15}
+          table-strategy:
+            standard:
+              sharding-column: id
+              sharding-algorithm-name: table-inline
+          database-strategy:
+            standard:
+              sharding-column: user_id
+              sharding-algorithm-name: database-inline
+  jpa:
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+        jdbc:
+          batch_size: 100
+          order_inserts: true
+          order_updates: true
+          batch_versioned_data: true
+        generate_statistics: false
+    hibernate:
+#      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+
+server:
+  port: 9300

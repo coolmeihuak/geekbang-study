@@ -1,0 +1,64 @@
+spring:
+  shardingsphere:
+    props:
+      sql-show: true
+    datasource:
+      names: master,slave0,slave1
+      parameters: useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+      ## spring boot 2.4以上必须要配置common
+#      common:
+#        type: com.zaxxer.hikari.HikariDataSource
+#        driver-class: com.mysql.cj.jdbc.Driver
+#        username: root
+#        password: 123456
+      master: &default-db-config
+        jdbc-url: jdbc:mysql://localhost:3201/test?${spring.shardingsphere.datasource.parameters}
+      slave0:
+#        <<: *default-db-config
+        jdbc-url: jdbc:mysql://localhost:3202/test?${spring.shardingsphere.datasource.parameters}
+      slave1:
+#        <<: *default-db-config
+        jdbc-url: jdbc:mysql://localhost:3203/test?${spring.shardingsphere.datasource.parameters}
+    rules:
+#      replica-query:
+#        data-sources:
+#          ds_0:
+#            primary-data-source-name: master
+#            replica-data-source-names: slave0,slave1
+#            load-balancer-name: ROUND_ROBIN
+#        load-balancers:
+#          read-random:
+#            type: ROUND_ROBIN
+      readwrite-splitting:
+        data-sources:
+          ds_0:
+            write-data-source-name: master
+            read-data-source-names: slave0,slave1
+            load-balancer-name: ROUND_ROBIN
+#            auto-aware-data-source-name: master
+        load-balancers:
+          read-random:
+            type: ROUND_ROBIN
+#            props:
+  jpa:
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+        jdbc:
+          batch_size: 100
+          order_inserts: true
+          order_updates: true
+          batch_versioned_data: true
+        generate_statistics: false
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+
+server:
+  port: 9300

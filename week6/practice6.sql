@@ -4,12 +4,7 @@ create database test
 use test;
 CREATE TABLE test.`user` (
                         `id` varchar(36) NOT NULL,
-                        `created_on` datetime(6) NOT NULL,
-                        `updated_on` datetime(6) DEFAULT NULL,
-                        `version` smallint(6) DEFAULT NULL,
                         `mobile` varchar(20) DEFAULT NULL,
-                        `nick_name` varchar(50) NOT NULL,
-                        `password` varbinary(60) DEFAULT NULL,
                         `username` varchar(20) DEFAULT NULL,
                         PRIMARY KEY (`id`),
                         UNIQUE KEY `UK_username` (`username`)
@@ -17,9 +12,6 @@ CREATE TABLE test.`user` (
 ;
 CREATE TABLE test.`commodity` (
                              `id` varchar(36) NOT NULL,
-                             `created_on` datetime(6) NOT NULL,
-                             `updated_on` datetime(6) DEFAULT NULL,
-                             `version` smallint(6) DEFAULT NULL,
                              `name` varchar(50) not null ,
                              `price` decimal(10,2),
                              PRIMARY KEY (`id`)
@@ -27,9 +19,6 @@ CREATE TABLE test.`commodity` (
 ;
 create table test.`order` (
                                     `id` varchar(36) NOT NULL,
-                                    `created_on` datetime(6) NOT NULL,
-                                    `updated_on` datetime(6) DEFAULT NULL,
-                                    `version` smallint(6) DEFAULT NULL,
                                     `user_id` varchar(36) NOT NULL,
                                     `money` decimal(10,2),
                                     `remark` varchar(200),
@@ -40,9 +29,6 @@ create table test.`order` (
 ;
 create table test.`order_item` (
                               `id` varchar(36) NOT NULL,
-                              `created_on` datetime(6) NOT NULL,
-                              `updated_on` datetime(6) DEFAULT NULL,
-                              `version` smallint(6) DEFAULT NULL,
                               `order_id` varchar(36) NOT NULL,
                               `commodity_id` varchar(36) NOT NULL,
                               `count` int,
