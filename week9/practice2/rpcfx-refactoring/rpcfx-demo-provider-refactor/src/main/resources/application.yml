@@ -1,0 +1,5 @@
+rpc:
+  netty:
+    server: true
+    port: 8080
+
