@@ -22,7 +22,7 @@ import java.util.List;
 
 public final class Rpcfx {
 
-    public static <T> T create(final Class<T> serviceClass, final String url, Filter... filters) {
+    public static <T> T create(final Class<T> serviceClass, final String url) {
 
         return new JdkProxy<T>(serviceClass, url).create();
     }

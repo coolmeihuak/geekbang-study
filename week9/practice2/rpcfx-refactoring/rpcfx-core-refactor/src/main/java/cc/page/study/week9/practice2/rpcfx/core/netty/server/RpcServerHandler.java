@@ -16,15 +16,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
-/**
- * @author lw1243925457
- */
 @Slf4j
 public class RpcServerHandler extends SimpleChannelInboundHandler<RpcProtocol> {
 
     private ApplicationContext applicationContext;
 
-    RpcServerHandler(ApplicationContext applicationContext){
+    public RpcServerHandler(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
@@ -68,7 +65,7 @@ public class RpcServerHandler extends SimpleChannelInboundHandler<RpcProtocol> {
             response.setStatus(true);
             log.info("Server Response serialize to string return");
             return response;
-        } catch ( IllegalAccessException | InvocationTargetException | RpcException e) {
+        } catch (IllegalAccessException | InvocationTargetException | RpcException e) {
             e.printStackTrace();
             response.setException(e);
             response.setStatus(false);

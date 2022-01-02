@@ -1,6 +1,6 @@
 package cc.page.study.week9.practice2.rpcfx;
 
-import cc.page.study.week9.practice2.rpcfx.core.netty.server.RpcNettyServer;
+import cc.page.study.week9.practice2.rpcfx.core.server.RpcNettyServer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
